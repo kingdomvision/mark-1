@@ -8,6 +8,18 @@ console.log('Welcome to Coframe!');
 // Select the h3.hip-lp__card-dscrptn element
 const h3 = document.querySelector('.hip-lp__card-dscrptn');
 if (h3) {
+  // Extract location from h1.hip-lp__ttl
+  let location = 'your area'; // fallback
+  const h1 = document.querySelector('.hip-lp__ttl');
+  if (h1) {
+    const h1Text = h1.textContent;
+    // Extract location from text like "Compare the best Home Security Companies in London, England"
+    const match = h1Text.match(/in\s+(.+?)$/);
+    if (match) {
+      location = match[1].trim();
+    }
+  }
+  
   // Update the text inside the <b> element
   const bElement = h3.querySelector('b');
   if (bElement) {
@@ -19,7 +31,7 @@ if (h3) {
     const node = h3.childNodes[i];
     if (node.nodeType === 3) { // Text node
       if (node.textContent.includes('Confirm to get prices')) {
-        node.textContent = '\nCompare top security systems and save money in Boardman, Oregon';
+        node.textContent = `\nCompare top security systems and save money in ${location}`;
       }
     }
   }
